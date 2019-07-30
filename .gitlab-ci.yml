@@ -1,0 +1,34 @@
+image: node:10.16.0
+
+stages:
+  - build
+  - test
+  - deploy
+
+before_script:
+  - npm install
+
+build-min-code:
+  stage: build
+  script:
+    - npm install
+    - npm run minifier
+
+run-unit-test:
+  stage: test
+  script:
+    - npm run test
+
+deploy-staging:
+  stage: deploy
+  script:
+    - npm run deploy-stage
+  only:
+    - develop
+
+deploy-production:
+  stage: deploy
+  script:
+    - npm run deploy-prod
+  only:
+    - master
