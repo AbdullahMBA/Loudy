@@ -34,7 +34,7 @@ class App extends React.Component {
 
 
         this.currentUser.subscribeToRoomMultipart({
-          roomId: "21673207",
+          roomId: currentUser.rooms[0].id,
           hooks: {
             onMessage: (message) => {
               console.log(currentUser.id, message.parts[0].payload.content, message.createdAt)
@@ -49,6 +49,8 @@ class App extends React.Component {
 
 
         console.log('Successful conncection', currentUser)
+        console.log(currentUser)
+        console.log(this.roomId)
       })
       .catch(err => {
         console.log('Error connection ', err)
@@ -63,7 +65,7 @@ class App extends React.Component {
       <div className="app">
         <RoomList />
         <MessageList messages={this.state.messages} senderId={this.state.senderName} />
-        <SendMessageForm />
+        <SendMessageForm userinfo={this.currentUser} />
         <NewRoomForm />
       </div>
     );

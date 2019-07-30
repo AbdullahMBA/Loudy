@@ -17,23 +17,28 @@ class SendMessageForm extends React.Component {
 
 
     onPush = (e) => {
-        this.setState({
-            message: e.target.value
-        })
+      this.setState({
+          message: this.refs.input.value
+      })
 
     }
 
     onSubmit = (e) => {
         e.preventDefault()
-        alert(this.state.message)
+
+        this.props.userinfo.sendSimpleMessage({
+            text: this.state.message,
+            roomId: this.props.userinfo.rooms[0].id
+          });
+          this.state.message = ''
     }
     render() {
         return (
             <form className="send-message-form" onSubmit={this.onSubmit}>
                 <input
                     placeholder="SendMessageForm"
-                    type="text" ref='input' value={this.state.message} onChange={this.onPush} />
-
+                    type="text" ref='input' value={this.state.message}  onChange={this.onPush} />
+ 
 
 
             </form>
