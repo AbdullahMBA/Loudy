@@ -2,19 +2,21 @@ import React from 'react'
 
 class RoomList extends React.Component {
     render () {
+        const orderedRooms = [...this.props.rooms].sort((a, b) => a.id - b.id)
         return (
             <div className="rooms-list">
                 <ul>
                 <h3>Your rooms:</h3>
-                    {this.props.rooms.map(room => {
+                    {orderedRooms.map(room => {
+                        const active = this.props.roomId === room.id ? "active" : "";
                         return (
-                            <li key={room.id} className="room">
-                            <a
-                                onClick={() => this.props.subscribeToRoomMultipart(room.id)}
-                                href="#">
-                                # {room.name}
-                            </a>
-                        </li>
+                            <li key={room.id} className={"room " + active}>
+                                <a
+                                    onClick={() => this.props.subscribeToRoomMultipart(room.id)}
+                                    href="#">
+                                    # {room.name}
+                                </a>
+                            </li>
                         )
                     })}
                 </ul>

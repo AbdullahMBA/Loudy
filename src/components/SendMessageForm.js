@@ -24,13 +24,15 @@ class SendMessageForm extends React.Component {
     }
 
     onSubmit = (e) => {
-        e.preventDefault()
 
+        e.preventDefault()
+if(this.state.message !== ''){
         this.props.userinfo.sendSimpleMessage({
             text: this.state.message,
             roomId: this.props.userinfo.rooms[0].id
           });
           this.state.message = ''
+        }
     }
     render() {
         return (
