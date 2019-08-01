@@ -12,6 +12,7 @@ class App extends React.Component {
   constructor() {
     super()
     this.state = {
+      roomId:null,
       messages: [],
       senderName: '',
       joinableRooms: [],
@@ -19,6 +20,8 @@ class App extends React.Component {
     }
     this.subscribeToRoom = this.subscribeToRoom.bind(this)
     this.getRooms = this.getRooms.bind(this)
+    this.createRoom = this.createRoom.bind(this)
+    this.sendMessage = this.sendMessage.bind(this)
   }
 
   componentDidMount() {
@@ -74,10 +77,25 @@ class App extends React.Component {
       });
   }
 
-  snedMessage() {
+  sendMessage() {
     this.currentUser.sendMessage()
   }
 
+
+
+  createRoom(roomName){
+
+    this.currentUser.createRoom({
+      name: roomName,
+    
+    }).then(room => {
+      this.subscribeToRoomMultipart(this.state.roomId)
+    })
+    .catch(err => {
+      console.log(`Error creating room ${err}`)
+    })
+
+  }
 
   render() {
 
@@ -90,8 +108,8 @@ class App extends React.Component {
           userinfo={this.currentUser}
           key={this.roomId} />
         <MessageList messages={this.state.messages} senderId={this.state.senderName} />
-        <SendMessageForm userinfo={this.currentUser} roomId={this.state.roomId} />
-        <NewRoomForm />
+        <SendMessageForm userinfo={this.currentUser} roomId={this.state.roomId} sendMessage={this.sendMessage} />
+        <NewRoomForm userinfo={this.currentUser} createRoom={this.createRoom} />
       </div>
     );
   }
