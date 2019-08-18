@@ -28,8 +28,10 @@ class SendMessageForm extends React.Component {
         if (this.state.message !== '') {
             this.props.userinfo.sendSimpleMessage({
                 text: this.state.message,
-                roomId: this.props.userinfo.rooms[0].id
+                roomId: this.props.userinfo.rooms[2].id
+                
             });
+
             this.state.message = ''
         }
     }

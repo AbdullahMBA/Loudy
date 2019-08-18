@@ -88,10 +88,7 @@ class App extends React.Component {
     this.currentUser.createRoom({
       name: roomName,
     
-    }).then(room => {
-      this.subscribeToRoomMultipart(this.state.roomId)
-    })
-    .catch(err => {
+    }).catch(err => {
       console.log(`Error creating room ${err}`)
     })
 

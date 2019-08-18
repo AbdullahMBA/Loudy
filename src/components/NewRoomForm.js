@@ -58,6 +58,7 @@ class NewRoomForm extends React.Component {
         this.setState({
             roomName: event.target.value
         })
+        console.log(this.state.roomName)
     }
 
 
@@ -65,9 +66,14 @@ class NewRoomForm extends React.Component {
 
     handleEvent(e){
      e.preventDefault()   
-    this.props.createRoom(this.state.roomName)
+    this.props.userinfo.createRoom({
+        name: this.state.roomName,
+        private: this.state.private
+    }).then(setTimeout(() =>{
+        window.location.reload()
+    }, 50))
 
-
+  
     }
 
     render() {
